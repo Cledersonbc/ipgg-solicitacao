@@ -1,0 +1,59 @@
+{% extends 'solicitacao/base.html' %}
+{% block title %}Perfil{% endblock %}
+{% block body %}
+    <form action = "#" method = "POST">
+        {% csrf_token %}
+		<h1 style="text-align: center">Perfil</h1><br />
+        {% if msg_erro %}
+            <div class="alert alert-danger">
+                {{msg_erro}}
+            </div>
+        {% elif msg_sucesso %}
+            <div class="alert alert-success">
+                {{msg_sucesso}}
+            </div>
+        {% endif %}
+        <div class="input-group">
+            <span class="input-group-addon">Usuário</span>
+            <input name="nome_login" type="text" class="form-control" value="{{usuario.username}}" readonly />
+        </div>
+        <br />
+        <div class="input-group">
+            <span class="input-group-addon">Nome</span>
+            <input type="text" class="form-control" value="{{usuario.first_name}} {{usuario.last_name}}" readonly />
+        </div>
+        <input name="primeiro_nome" type="text" value="{{usuario.first_name}}" hidden />
+        <input name="ultimo_nome" type="text" value="{{usuario.last_name}}" hidden />
+        <br />
+        <div class="input-group">
+            <span class="input-group-addon">Setor</span>
+            <input name="setor" type="text" class="form-control" value="{{usuario.modelperfil.setor.nome}}" readonly />
+        </div>
+        <br />
+        <div class="input-group">
+            <span class="input-group-addon">Gerência</span>
+            <input name="gerencia" type="text" class="form-control" value="{{usuario.modelperfil.setor.gerencia.nome}}" readonly />
+        </div>
+        <br />
+        <div class="input-group">
+            <span class="input-group-addon">E-mail</span>
+            <input name="email" type="text" class="form-control" value="{{usuario.email}}" required />
+        </div>
+        <br />
+        <div class="input-group">
+            <span class="input-group-addon">Senha</span>
+            <input name="senha" type="password" class="form-control" placeholder="Sua senha" maxlength="30" />
+        </div>
+        <br />
+        <div class="input-group">
+            <span class="input-group-addon">Senha (confirmação)</span>
+            <input name="conf_senha" type="password" class="form-control" placeholder="Sua senha novamente" maxlength="30" />
+        </div>
+        <br />
+        <div id="btnAcoes">
+            <input class="btn btn-primary" type="submit" id="gravar" value="Gravar"/>
+            <a href="{% url 'solicitacao:index' %}"><input class="btn btn-default" type="button" id="cancelar" value="Cancelar"/></a>
+        </div>
+        <br /><br />
+    </form>
+{% endblock %}

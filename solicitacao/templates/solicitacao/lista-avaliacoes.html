@@ -1,0 +1,57 @@
+{% extends 'solicitacao/base.html' %}
+{% block title %}Lista de Avaliações{% endblock %}
+{% block body %}
+    <h1 style="text-align: center">Lista de Avaliações</h1>
+    <br />
+    <br />
+    {% if msg %}
+        <div class="alert alert-info">{{ msg }}</div>
+    {% endif %}
+    <br />
+    <div class="input-group">
+        <span class="input-group-addon">Pesquisar </span>
+        <input type="text" class="form-control" id="busca-listagem" placeholder="Informe aqui a solicitação..." />
+    </div>
+   <br />
+    {% if avaliacoes %}
+        <div class="container" style="max-height: 1300px; overflow: scroll">
+            <table class="table table-hover" id="tabela-avaliacao">
+                <thead>
+                    <tr>
+                        <th>Nº</th>
+                        <th>Avaliador</th>
+                        <th>Estimativa</th>
+                        <th>Viabilidade</th>
+                        <th>Data Prevista</th>
+                        <th>Solicitação</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for avaliacao in avaliacoes %}
+                        <tr>
+                            <td>{{ avaliacao.id }}</td>
+                            <td>{{ avaliacao.responsavel }}</td>
+                            <td>R$ {{ avaliacao.estimativa }}</td>
+                            <td>{{ avaliacao.viabilidade }}</td>
+                            <td>{{ avaliacao.data_prev }}</td>
+                            <td><a href="{% url 'solicitacao:visualizar' avaliacao.solicitacao_n.id %}" target="_blank" title="Visualizar Solicitação {{ avaliacao.solicitacao_n.id }}" >{{ avaliacao.solicitacao_n }}</a></td>
+                            <td>
+                                <a href="{% url 'solicitacao:avaliacao_visualizar' avaliacao.id %}" class="btn btn-default" target="_blank" title="Visualizar Avaliacao {{ avaliacao.id }}">
+                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                </a>
+                                <a href="{% url 'solicitacao:del_avaliacao' avaliacao.id %}" class="btn btn-danger" title="Excluir Solicitação {{ solicitacao.id }}">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            Nenhuma avaliação encontrada.
+        </div>
+    {% endif %}
+{% endblock %}

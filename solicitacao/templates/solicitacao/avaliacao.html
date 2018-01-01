@@ -1,0 +1,81 @@
+{% extends 'solicitacao/base.html' %}
+{% block title %}Cadastro de Responsabilidades GRH e GEGER{% endblock %}
+{% block body %}
+    <form action = "{% url 'solicitacao:avaliar' solicitacao.id %}" method = "POST">
+        {% csrf_token %}
+        <h1 style="text-align: center">Cadastro de Responsabilidades GRH e GEGER</h1><br />
+        {% if sucesso == 0 %}
+            <div class="alert alert-success">
+                <strong>Sucesso!</strong> Solicitação Avaliada.
+            </div>
+        {% elif sucesso == 1 %}
+            <div class="alert alert-danger">
+                <strong>Erro!</strong> Solicitação não avaliada. Por favor, verifique o preenchimento dos campos.
+            </div>
+        {% elif sucesso == 2%}
+            <div class="alert alert-danger">
+                <strong>Erro!</strong> Essa solicitação já foi avaliada. Por favor, exclua a avaliação anterior para poder avaliar essa solicitação novamente.
+            </div>
+        {% endif %}
+
+        <div class="input-group">
+            <span class="input-group-addon">Solicitação nº </span>
+            <input type="text" class="form-control" value="{{ solicitacao }}" readonly />
+            <input type="hidden" class="form-control" id="solicitacao_n" name="solicitacao_n" value="{{ solicitacao.id }}" />
+        </div>
+        <br />
+        <div class="input-group">
+            <span class="input-group-addon">Responsável </span>
+            <input type="text" class="form-control" id="responsavel" name="responsavel" value="{{ nome_responsavel }}" maxlength="30" readonly />
+        </div>
+        <br />
+        <div class="container" style="text-align: center">
+            <a href="{% url 'solicitacao:visualizar' solicitacao.id %}" class="btn btn-default" target="_blank" title="Visualizar Solicitação nº {{ solicitacao }}">
+                <span class="glyphicon glyphicon-eye-open"></span>&nbsp;
+                Visualizar
+            </a>
+        </div>
+        <br />
+        <hr />
+        <br />
+        <p>Grau de complexidade da ação de desenvolvimento</p>
+        <div class="list-group">
+            <label for="complex_alta" class="list-group-item"><input type="radio" id="complex_alta" value="Alta" name="complexidade" checked /> Alta</label>
+            <label for="complex_media" class="list-group-item"><input type="radio" id="complex_media" value="Média" name="complexidade" /> Média</label>
+            <label for="complex_baixa" class="list-group-item"><input type="radio" id="complex_baixa" value="Baixa" name="complexidade" /> Baixa</label>
+        </div>
+        <br />
+        <hr />
+        <br />
+        <p>Recursos a serem utilizados</p>
+        <div class="list-group">
+            <label for="rec_proprio" class="list-group-item"><input type="radio" id="rec_proprio" name="recursos" value="Próprio" checked /> Próprio</label>
+            <label for="rec_outros" class="list-group-item"><input type="radio" id="rec_outros" name="recursos" value="Outros" /> Outros<input type="text" name="outro_recurso" class="form-control" id="cam_outro_recurso" maxlength="60" placeholder="Descreva aqui os outros recursos a serem utilizados..." style="display:none;"/></label>
+        </div>
+        <br />
+        <div class="input-group">
+            <span class="input-group-addon">Estimativa de custo para a ação?</span>
+            <input id="estimativa" type="number" class="form-control" name="estimativa" min= "0" max="1000000" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" value="1" required/>
+        </div>
+        <br />
+        <hr />
+        <br />
+        <p>Viabilidade</p>
+        <div class="list-group">
+            <label for="viab_sim" class="list-group-item"><input type="radio" id="viab_sim" value="Sim" name="viabilidade" checked /> Sim</label>
+            <label for="viab_nao" class="list-group-item"><input type="radio" id="viab_nao" value="Não" name="viabilidade" /> Não</label>
+        </div>
+        <br />
+        <div class="input-group" style="max-width: 300px">
+            <span class="input-group-addon">Data Prevista</span>
+            <input name="data_rev" type="date" class="form-control"/>
+        </div>
+        <br /><br />
+        <div id="btnAcoes">
+            <input class="btn btn-primary" type="submit" value="Gravar"/>
+            <input class="btn btn-default" type="button" id="limpar" value="Limpar"/>
+            <a href="{% url 'solicitacao:index'%}"><input class="btn btn-default" type="button" id="cancelar" value="Cancelar"/></a>
+        </div>
+        <br /><br />
+    </form>
+{% endblock %}

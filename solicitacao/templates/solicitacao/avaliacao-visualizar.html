@@ -1,0 +1,13 @@
+{% extends 'solicitacao/base.html' %}
+{% block title %}Visualizar Avaliação{% endblock %}
+{% block body %}
+	<h1 style="text-align: center">Consulta de Responsabilidades GRH e GEGER</h1><br />
+	<br /><br />
+    <table class="table table-bordered" style="background: #FFFFFF">
+        <tr><th colspan="2">Definição sob Responsabilidade do GRH e GEGER nº {{ avaliacao.id }}</th></tr>
+        <tr><td colspan="2"><b>Responsável:</b> {{ avaliacao.responsavel }}</td></tr>
+        <tr><td><b>Solicitação nº: </b><a href="{% url 'solicitacao:visualizar' avaliacao.solicitacao_n.id %}" target="_blank" >{{ avaliacao.solicitacao_n }}</a></td><td><b>Complexidade:</b> {{ avaliacao.complexidade }}</td></tr>
+        <tr><td><b>Recursos:</b> {% if avaliacao.recursos != "Outros" %} {{avaliacao.recursos}} {% else %} {{avaliacao.outro_recurso}} {% endif %}</td><td><b>Estimativa:</b> {{ avaliacao.estimativa }}</td></tr>
+        <tr><td><b>Viabilidade:</b> {{ avaliacao.viabilidade }}</td><td><b>Data Prevista:</b> {{ avaliacao.data_prev }}</td></tr>
+    </table>
+{% endblock %}

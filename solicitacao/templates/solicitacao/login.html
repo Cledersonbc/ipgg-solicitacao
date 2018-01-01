@@ -1,0 +1,28 @@
+{% extends 'solicitacao/base.html' %}
+{% block title %}Login{% endblock %}
+{% block body %}
+    <form action = "{% url 'solicitacao:login_usuario' %}" method = "POST">
+    {% csrf_token %}
+    <h1 style="text-align: center">Entrar</h1><br />
+    {% if msg_erro %}
+        <div class="alert alert-danger">
+            {{msg_erro}}
+        </div>
+    {% endif %}
+    <div class="input-group">
+        <span class="input-group-addon">Nome de Usuário:</span>
+        <input name="username" type="text" class="form-control" placeholder="Nome de usuário" maxlength="30" required />
+    </div>
+    <br />
+    <div class="input-group">
+        <span class="input-group-addon">Senha:</span>
+        <input name="password" type="password" class="form-control" placeholder="Senha de usuário" maxlength="30" required />
+    </div>
+    <br />
+    <div id="btnAcoes">
+        <input class="btn btn-primary" type="submit" value="Logar"/>
+        <a href="#"><input class="btn btn-default" type="button" value="Cancelar"/></a>
+    </div>
+    <br /><br />
+    </form>
+{% endblock %}

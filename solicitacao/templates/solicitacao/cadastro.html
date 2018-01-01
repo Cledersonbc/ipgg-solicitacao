@@ -1,0 +1,112 @@
+{% extends 'solicitacao/base.html' %}
+{% block title %}Cadastrar Solicitação{% endblock %}
+{% block body %}
+<form action = "{% url 'solicitacao:cadastro' %}" method = "POST">
+    {% csrf_token %}
+    <h1 style="text-align: center">Cadastrar Solicitação</h1><br />
+
+    {% if sucesso == 0 %}
+        <div class="alert alert-success">
+            <strong>Sucesso!</strong> Solicitação cadastrada.
+        </div>
+    {% elif sucesso == 1 %}
+        <div class="alert alert-danger">
+            <strong>Erro!</strong> Solicitação não cadastrada. Por favor, verifique o preenchimento dos campos.
+        </div>
+    {% endif %}
+
+    <div class="input-group">
+        <span class="input-group-addon">Unidade</span>
+        <input name="unidade" type="text" class="form-control" value="Instituto Paulista de Geriatria e Gerontologia" maxlength="100" readonly/>
+    </div>
+    <br/>
+    <div class="input-group">
+        <span class="input-group-addon">Gerência</span>
+        <input name="gerencia" type="text" class="form-control" value="{{usuario.modelperfil.setor.gerencia.nome}}" maxlength="30" readonly/>
+    </div>
+    <br/>
+    <div class="input-group">
+        <span class="input-group-addon">Setor</span>
+        <input name="setor" type="text" class="form-control" value="{{usuario.modelperfil.setor.nome}}" maxlength="60" readonly/>
+    </div>
+    <br />
+    <div class="input-group">
+        <span class="input-group-addon">Solicitante</span>
+        <input name="solicitante" type="text" class="form-control" value="{{usuario.first_name}} {{usuario.last_name}}" maxlength="60" readonly/>
+	    <span class="input-group-addon">Data</span>
+        <input name="data" type="date" class="form-control" required/>
+    </div>
+    <br />
+    <hr />
+    <br />
+    <p>Defina o tipo de evento solicitado</p>
+    <div class="list-group" id="tipo_eventos">
+        <label for="tipo_curso" class="list-group-item"><input type="radio" id="tipo_curso" value="Curso" name="tipo_evento" checked /> Curso</label>
+        <label for="tipo_capacitacao" class="list-group-item"><input type="radio" id="tipo_capacitacao" value="Capacitação" name="tipo_evento" /> Capacitação</label>
+        <label for="tipo_treinamento" class="list-group-item"><input type="radio" id="tipo_treinamento" value="Treinamento" name="tipo_evento" /> Treinamento</label>
+        <label for="tipo_educacao" class="list-group-item"><input type="radio" id="tipo_educacao" value="Educação Continuada" name="tipo_evento" /> Educação Continuada</label>
+        <label for="tipo_congresso" class="list-group-item"><input type="radio" id="tipo_congresso" value="Congresso" name="tipo_evento" /> Congresso</label>
+        <label for="tipo_outro" class="list-group-item"><input type="radio" id="tipo_outro" value="Outros" name="tipo_evento" />
+            Outro<input id="cam_outro" name="outro_evento" type="text" class="form-control" placeholder="Descreva aqui o tipo do evento solicitado..." maxlength="60" style="display:none;"/>
+        </label>
+    </div>
+    <br />
+    <hr />
+    <br />
+    <p>Justificativa</p>
+    <textarea class="form-control" name="justificativa" rows="3" placeholder="Apresentar de forma resumida a justificativa da solicitação." maxlength="500" required></textarea>
+    <br /><br />
+    <p>Diagnóstico Situacional</p>
+    <textarea class="form-control" name="diagnostico" rows="3" placeholder="Apresentar de forma resumida o diagnóstico situacional." maxlength="500" required></textarea>
+    <br /><br />
+    <p>Prioridade</p>
+    <div class="list-group">
+        <label for="pri_alta" class="list-group-item"><input type="radio" id="pri_alta" value="Alta" name="prioridade" checked /> Alta</label>
+        <label for="pri_moderada" class="list-group-item"><input type="radio" id="pri_moderada" value="Moderada" name="prioridade" /> Moderada</label>
+        <label for="pri_baixa" class="list-group-item"><input type="radio" id="pri_baixa" value="Baixa" name="prioridade" /> Baixa</label>
+    </div>
+    <br />
+    <p>Para quem será realizado o evento?</p>
+    <div class="list-group">
+        <label for="ev_setor" class="list-group-item"><input type="radio" id="ev_setor" value="Setor" name="evento_realizado" checked /> Setor</label>
+        <label for="ev_individual" class="list-group-item"><input type="radio" id="ev_individual" value="Setor" name="evento_realizado" /> Individual</label>
+        <label for="ev_categoria" class="list-group-item"><input type="radio" id="ev_categoria" value="Categoria" name="evento_realizado" /> Categoria</label>
+        <label for="ev_qual" class="list-group-item"><input type="radio" id="ev_qual" value="Qual" name="evento_realizado" />
+            Qual? <input name="qual_evento" id="cam_qual" type="text" class="form-control" placeholder="Descreva aqui para quem será realizado..." maxlength="60" style="display:none"/>
+        </label>
+    </div>
+    <br />
+    <p>Quantidade de participantes <input type="number" name="qtd_participante" min="1" max="10000" value="1" required/></p><br/>
+    <hr />
+    <br />
+    <div id="part-indiv-opcional" style="display: none">
+        <p>Se a participação for individual, especifique o porquê</p>
+        <textarea class="form-control" name="part_individual" rows="3" maxlength="500"></textarea><br /><br />
+    </div>
+    <p>Qual eixo do Projeto Básico de Desenvolvimento da Unidade está sendo contemplado com a ação?</p>
+    <div class="list-group">
+        <label for="edu_saude" class="list-group-item"><input type="radio" id="edu_saude" value="Educação Permanente em Saúde" name="eixo_basico" checked/> Educação Permanente em Saúde</label>
+        <label for="com_corp" class="list-group-item"><input type="radio" id="com_corp" value="Comunicação Corporativa" name="eixo_basico" /> Comunicação Corporativa</label>
+        <label for="relacionamento_in" class="list-group-item"><input type="radio" id="relacionamento_in" value="Relacionamento Interpessoal" name="eixo_basico" /> Relacionamento Interpessoal</label>
+        <label for="dev_acom_proj" class="list-group-item"><input type="radio" id="dev_acom_proj" value="Desenvolvimento e Acompanhamento de Projetos" name="eixo_basico" /> Desenvolvimento e Acompanhamento de Projetos</label>
+        <label for="qualidade_vida" class="list-group-item"><input type="radio" id="qualidade_vida" value="Qualidade de Vida" name="eixo_basico" /> Qualidade de Vida</label>
+        <label for="proce_trab" class="list-group-item"><input type="radio" id="proce_trab" value="Processos de Trabalho" name="eixo_basico" /> Processos de Trabalho</label>
+        <label for="trei_infor" class="list-group-item"><input type="radio" id="trei_infor" value="Treinamento em Informática e Sistemas de Informação" name="eixo_basico" /> Treinamento em Informática e Sistemas de Informação</label>
+        <label for="humanizacao" class="list-group-item"><input type="radio" id="humanizacao" value="Humanização" name="eixo_basico" /> Humanização</label>
+    </div>
+    <p>Se a ação não está vinculada aos eixos do Projeto, justifique a solicitação</p>
+    <textarea class="form-control" name="acao_nao_vinculada" rows="3" maxlength="500"></textarea><br /><br />
+    <p>Qual o impacto esperado para a Instituição?</p>
+    <textarea class="form-control" name="impacto_esperado_instituicao" rows="3" maxlength="500" required></textarea><br /><br />
+    <p>Qual o impacto esperado para o Setor?</p>
+    <textarea class="form-control" name="impacto_esperado_setor" rows="3" maxlength="500" required></textarea><br /><br />
+    <p>Descreva como será mensurado</p>
+    <textarea class="form-control" name="mensuracao" rows="3" maxlength="500" required></textarea><br /><br />
+    <div id="btnAcoes">
+        <input class="btn btn-primary" type="submit" value="Gravar"/>
+        <input class="btn btn-default" type="button" id="limpar" value="Limpar"/>
+        <a href="{% url 'solicitacao:index' %}"><input class="btn btn-default" type="button" id="cancelar" value="Cancelar"/></a>
+    </div>
+<br /><br />
+</form>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'solicitacao/base.html' %}
+{% block title %}Visualizar Solicitação{% endblock%}
+{% block body %}
+    <h1 style="text-align: center">Solicitação {{ solicitacao.id }}</h1><br />
+    <br /><br />
+    <table class="table table-bordered" style="background: #FFFFFF">
+        <tr><td colspan="2">Solicitação nº {{ solicitacao.id }}</td><td><b>Data:</b> {{ solicitacao.data }}</td></tr>
+        <tr><td colspan="3"><b>Unidade:</b> {{ solicitacao.unidade }}</td></tr>
+        <tr><td colspan="2"><b>Setor:</b> {{ solicitacao.setor }}</td><td colspan="1"><b>Gerência:</b> {{ solicitacao.gerencia }}</td></tr>
+        <tr><td colspan="3"><b>Solicitante:</b> {{ solicitacao.solicitante }}</td></tr>
+        <tr><td colspan="3"><b>Tipo de Evento Solicitado:</b> {% if solicitacao.tipo_evento != "Outros" %} {{solicitacao.tipo_evento}} {% else %} {{solicitacao.outro_evento}} {% endif %}</td></tr>
+        <tr><td colspan="3"><b>Justificativa:</b><br />{{ solicitacao.justificativa }}</td></tr>
+        <tr><td colspan="3"><b>Diagnóstico Situacional:</b><br />{{ solicitacao.diagnostico }}</td></tr>
+        <tr><td><b>Prioridade:</b> {{ solicitacao.prioridade }}</td><td><b>Realização do Evento:</b> {% if solicitacao.evento_realizado != "Qual" %} {{solicitacao.evento_realizado}} {% else %} {{solicitacao.qual_evento}} {% endif %}</td><td><b>Quantidade de Participantes:</b> {{ solicitacao.qtd_participante }}</td></tr>
+        <tr><td colspan="3"><b>Explicação da Participação Individual:</b><br />{{ solicitacao.part_individual }}</td></tr>
+        <tr><td colspan="3"><b>Eixo do Projeto Básico de Desenvolvimento da Unidade:</b><br />{{ solicitacao.eixo_basico }}</td></tr>
+        <tr><td colspan="3"><b>Justificativa (caso não vinculada):</b><br />{{ solicitacao.acao_nao_vinculada }}</td></tr>
+        <tr><td colspan="3"><b>Impacto Esperado para a Instituição:</b><br />{{ solicitacao.impacto_esperado_instituicao }}</td></tr>
+        <tr><td colspan="3"><b>Impacto Esperado para o Setor:</b><br />{{ solicitacao.impacto_esperado_setor }}</td></tr>
+        <tr><td colspan="3"><b>Mensuração dos Dados:</b><br />{{ solicitacao.mensuracao }}</td></tr>
+        <tr><td colspan="3"><b>Situação:</b> {{ solicitacao.status }}</td></tr>
+    </table>
+{% endblock %}

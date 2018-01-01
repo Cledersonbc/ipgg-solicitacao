@@ -1,0 +1,63 @@
+{% extends 'solicitacao/base.html' %}
+{% block title %}Lista de Solicitações{% endblock %}
+{% block body %}
+    <h1 style="text-align: center">Lista de Solicitações</h1>
+    <br />
+    <br />
+    {% if msg %}
+        <div class="alert alert-info">{{ msg }}</div>
+    {% endif %}
+    <br />
+    <div class="input-group">
+        <span class="input-group-addon">Pesquisar </span>
+        <input type="text" class="form-control" id="busca-listagem" placeholder="Informe aqui a solicitação..." />
+    </div>
+   <br />
+    {% if solicitacoes %}
+        <div class="container" style="max-height: 1300px; overflow: scroll">
+            <table class="table table-hover" id="tabela-solicitacao">
+                <thead>
+                    <tr>
+                        <th>Nº</th>
+                        <th>Solicitante</th>
+                        <th>Tipo</th>
+                        <th>Prioridade</th>
+                        <th>Data de Solicitação</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for solicitacao in solicitacoes %}
+                        <tr>
+                            <td>{{ solicitacao.id }}</td>
+                            <td>{{ solicitacao.solicitante }}</td>
+                            <td>{{ solicitacao.tipo_evento }}</td>
+                            <td>{{ solicitacao.prioridade }}</td>
+                            <td>{{ solicitacao.data }}</td>
+                            <td>{{ solicitacao.status }}</td>
+                            <td>
+                                <a href="{% url 'solicitacao:visualizar' solicitacao.id %}" class="btn btn-default" target="_blank" title="Visualizar Solicitação {{ solicitacao.id }}">
+                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                </a>
+                                {% load solicitacao_extras %}
+                                {% if request.user|has_group:"avaliador" %}
+                                <a href="{% url 'solicitacao:avaliar' solicitacao.id %}" class="btn btn-default" target="_blank" title="Avaliar Solicitação {{ solicitacao.id }}">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                </a>
+                                <a href="{% url 'solicitacao:del_solicitacao' solicitacao.id %}" class="btn btn-danger" title="Excluir Solicitação {{ solicitacao.id }}">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            Nenhuma solicitação encontrada.
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends 'solicitacao/base.html' %}
+{% block title %}Cadastro no Sistema{% endblock %}
+{% block body %}
+    <form action = "{% url 'solicitacao:signup' %}" method = "POST">
+    {% csrf_token %}
+		<h1 style="text-align: center">Cadastrar Usuário</h1><br />
+			{% if msg_erro %}
+				<div class="alert alert-danger">
+					{{msg_erro}}
+				</div>
+			{% elif msg_sucesso %}
+				<div class="alert alert-success">
+					{{msg_sucesso}}
+				</div>
+			{% endif %}
+			<div class="input-group">
+				<span class="input-group-addon">Nome de Usuário:</span>
+				<input name="nome_login" type="text" class="form-control" value="{{nome_login}}" placeholder="Nick curto e decorável, exemplo: joao2017" maxlength="30" required />
+			</div>
+			<br />
+			<div class="input-group">
+				<span class="input-group-addon">Primeiro Nome:</span>
+				<input name="primeiro_nome" type="text" class="form-control" value="{{primeiro_nome}}" placeholder="Ex.: João" maxlength="30" required />
+			</div>
+			<br />
+			<div class="input-group">
+				<span class="input-group-addon">Último Nome:</span>
+				<input name="ultimo_nome" type="text" class="form-control" value="{{ultimo_nome}}" placeholder="Ex.: Silva" maxlength="30" required />
+			</div>
+			<br />
+			<div class="input-group">
+				<span class="input-group-addon">Setor:</span>
+				<input name="setor" type="text" list="setores" class="form-control" value="{{setor}}" placeholder="Ex.: NSI" maxlength="100" required />
+			</div>
+			<datalist id="setores">
+				<option value="Assistência Técnica">
+				<option value="Biblioteca">
+				<option value="Núcleo de Acompanhamento de Projetos">
+				<option value="Núcleo de Admissão Estatística">
+				<option value="Núcleo de Apoio Administrativo">
+				<option value="Núcleo de Apoio Diagnóstico e Terapêutico">
+				<option value="Núcleo de Apoio Psicossocial">
+				<option value="Núcleo de Atenção ao Idoso">
+				<option value="Núcleo de Atividades Complementares">
+				<option value="Núcleo de Atividades Internas">
+				<option value="Núcleo de Compras e Suprimentos">
+				<option value="Núcleo de Cuidados e Enfermagem">
+				<option value="Núcleo de Dispensação de Medicamentos">
+				<option value="Núcleo de Estudos de Envelhecimento">
+				<option value="Núcleo de Eventos">
+				<option value="Núcleo de Finanças">
+				<option value="Núcleo de Gestão Pessoal">
+				<option value="Núcleo de Nutrição">
+				<option value="Núcleo de Patrimônio">
+				<option value="Núcleo de Reabilitação Física">
+				<option value="Núcleo de Saúde Bucal">
+				<option value="Núcleo de Seleção e Desenvolvimento">
+				<option value="Núcleo de Segurança e Medicina no Trabalho">
+				<option value="Núcleo de Suporte e Informática">
+				<option value="Núcleo de Suporte Social">
+			</datalist>
+			<br />
+			<div class="input-group">
+				<span class="input-group-addon">Gerência:</span>
+				<input name="gerencia" type="text" list="gerencias" class="form-control" value="{{gerencia}}" placeholder="Ex.: GPI" maxlength="100" required />
+			</div>
+			<datalist id="gerencias">
+				<option value="Centro de Convicência">
+				<option value="Diretoria Técnica">
+				<option value="Gerência de Apoio Técnico">
+				<option value="Gerência de Atenção na Saúde do Idoso">
+				<option value="Gerência de Projetos e Informação">
+				<option value="Gerência de Recurso Humanos">
+				<option value="Gerência Especializada em Gerontologia">
+
+			</datalist>
+			<br />
+			<div class="input-group">
+				<span class="input-group-addon">E-mail:</span>
+				<input name="email" type="text" class="form-control" value="{{email}}" placeholder="Ex.: seuEmail@email.com" maxlength="30" required />
+			</div>
+			<br />
+			<div class="input-group">
+				<span class="input-group-addon">Senha:</span>
+				<input name="senha" type="password" class="form-control" placeholder="Sua senha" maxlength="30" required />
+			</div>
+			<br />
+			<div class="input-group">
+				<span class="input-group-addon">Senha (confirmação):</span>
+				<input name="conf_senha" type="password" class="form-control" placeholder="Sua senha novamente" maxlength="30" required />
+			</div>
+			<br />
+			<div id="btnAcoes">
+				<input class="btn btn-primary" type="submit" id="gravar" value="Gravar"/>
+				<input class="btn btn-default" type="button" id="limpar" value="Limpar"/>
+				<a href="{% url 'solicitacao:index'%}"><input class="btn btn-default" type="button" id="cancelar" value="Cancelar"/></a>
+			</div>
+			<br /><br />
+    </form>
+{% endblock %}

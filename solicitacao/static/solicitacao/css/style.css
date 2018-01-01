@@ -1,0 +1,41 @@
+body {
+    background: url('img/background.jpg') repeat-y fixed;
+    background-size: 100% 1100px;
+}
+
+article {
+	padding: 2%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5%;
+	margin-bottom: 5%;
+	background: #ecf0f1;
+	width: 90%;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+}
+
+.navbar {
+	border-radius: 0;
+}
+
+label:hover, input[type=radio]:hover {
+	cursor: pointer;
+}
+
+#btnAcoes input {
+	display: inline-block;
+	margin-left: 10px;
+	margin-right: 10px;
+	float: right;
+	text-align: center;
+}
+
+hr {
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px solid #B1B1B1 !important;
+	margin: 1em 0;
+	padding: 0;
+}
