@@ -37,7 +37,7 @@
                             <td>{{ avaliacao.data_prev }}</td>
                             <td><a href="{% url 'solicitacao:visualizar' avaliacao.solicitacao_n.id %}" target="_blank" title="Visualizar Solicitação {{ avaliacao.solicitacao_n.id }}" >{{ avaliacao.solicitacao_n }}</a></td>
                             <td>
-                                <a href="{% url 'solicitacao:avaliacao_visualizar' avaliacao.id %}" class="btn btn-default" target="_blank" title="Visualizar Avaliacao {{ avaliacao.id }}">
+                                <a href="{% url 'solicitacao:avaliacao_visualizar' avaliacao.id %}" class="btn btn-default" title="Visualizar Avaliacao {{ avaliacao.id }}">
                                     <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                 </a>
                                 <a href="{% url 'solicitacao:del_avaliacao' avaliacao.id %}" class="btn btn-danger" title="Excluir Solicitação {{ solicitacao.id }}">
