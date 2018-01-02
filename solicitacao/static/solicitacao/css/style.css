@@ -39,3 +39,10 @@ hr {
 	margin: 1em 0;
 	padding: 0;
 }
+
+.center_img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}

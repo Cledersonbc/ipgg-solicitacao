@@ -340,7 +340,14 @@ def avaliar(request, solicitacao_id):
         formulario = FormAvaliacao(request.POST)
 
         if formulario.is_valid():
+            viabilidade = formulario.cleaned_data.get('viabilidade')
+            if viabilidade.lower() == "sim":
+                solicitacao.status = "viável"
+            else:
+                solicitacao.status = "inviável"
+
             formulario.save()
+            solicitacao.save()
             sucesso = 0
         else:
             sucesso = 1

@@ -4,9 +4,23 @@
     <h1 style="text-align: center">Solicitação {{ solicitacao.id }}</h1><br />
     <br /><br />
     <table class="table table-bordered" style="background: #FFFFFF">
+        {% load static %}
+        <tr>
+            <td>
+                <img src="{% static 'solicitacao/css/img/logo_est_sp.png' %}" class="img-responsive center_img" style="max-width: 110px" />
+            </td>
+            <td align="center" style="vertical-align: middle !important">
+                <p><b>SECRETARIA DE ESTADO DA SAÚDE</b></p>
+                <p><b>INSTITUTO PAULISTA DE GERIATRIA E GERONTOLOGIA</b></p>
+                <p><b>"JOŚE ERMÍRIO DE MORAES"</b></p>
+            </td>
+            <td>
+                <img src="{% static 'solicitacao/css/img/logo_ipgg.png' %}" class="img-responsive center_img" style="max-width: 90px" />
+            </td>
+        </tr>
         <tr><td colspan="2">Solicitação nº {{ solicitacao.id }}</td><td><b>Data:</b> {{ solicitacao.data }}</td></tr>
         <tr><td colspan="3"><b>Unidade:</b> {{ solicitacao.unidade }}</td></tr>
-        <tr><td colspan="2"><b>Setor:</b> {{ solicitacao.setor }}</td><td colspan="1"><b>Gerência:</b> {{ solicitacao.gerencia }}</td></tr>
+        <tr><td colspan="2" style="vertical-align: middle !important"><b>Setor:</b> {{ solicitacao.setor }}</td><td colspan="1"><b>Gerência:</b><br>{{ solicitacao.gerencia }}</td></tr>
         <tr><td colspan="3"><b>Solicitante:</b> {{ solicitacao.solicitante }}</td></tr>
         <tr><td colspan="3"><b>Tipo de Evento Solicitado:</b> {% if solicitacao.tipo_evento != "Outros" %} {{solicitacao.tipo_evento}} {% else %} {{solicitacao.outro_evento}} {% endif %}</td></tr>
         <tr><td colspan="3"><b>Justificativa:</b><br />{{ solicitacao.justificativa }}</td></tr>
