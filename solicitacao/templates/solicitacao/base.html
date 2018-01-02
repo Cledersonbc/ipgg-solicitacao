@@ -44,7 +44,6 @@
 							</a>
 						</li>
 
-                        {{request.user.groups.all}}
                         {% load solicitacao_extras %}
                         {% if request.user|has_group:"avaliador" %}
 						<li class="">
