@@ -3,10 +3,10 @@
 	<head>
 		<meta charset="utf-8" />
 		{% load static %}
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="{% static 'solicitacao/bootstrap/css/bootstrap.min.css' %}" />
 		<link rel="stylesheet" href="{% static 'solicitacao/css/style.css' %}" type="text/css" />
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="{% static 'solicitacao/js/jquery-3.2.1.min.js' %}"></script>
+		<script src="{% static 'solicitacao/bootstrap/js/bootstrap.min.js' %}"></script>
 		<script src="{% static 'solicitacao/js/script.js' %}"></script>
 		{% block extra_style %}{% endblock %}
 		<title>{% block title %}IPGG - Solicitação de Cursos e Eventos{% endblock %}</title>
