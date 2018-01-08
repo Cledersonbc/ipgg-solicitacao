@@ -4,6 +4,6 @@ from django.conf.urls import include
 
 urlpatterns = [
     url('admin/', admin.site.urls),
-    url('solicitacao/', include('solicitacao.urls')),
+    url('', include('solicitacao.urls')),
 ]
 
